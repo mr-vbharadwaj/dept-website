@@ -1,0 +1,199 @@
+{% extends 'login.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  <style>
+    @import url("https://fonts.googleapis.com/css?family=Lato&display=swap");
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      background-image: url('../static/img/pescollege.jpg');
+      background-repeat: no-repeat;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      font-family: "Lato", sans-serif;
+      height: 95.5vh;
+      margin: -20px 0 50px;
+    }
+
+    h1 {
+      font-weight: bold;
+      margin: 0;
+      color: #ffffff;
+    }
+
+    p {
+      font-size: 14px;
+      font-weight: 100;
+      line-height: 20px;
+      letter-spacing: 0.5px;
+      margin: 20px 0 30px;
+      color: #ffffff;
+    }
+
+    a {
+      color: #ffffff;
+      font-size: 12px;
+      text-decoration: none;
+      margin: 15px 0;
+    }
+
+    button {
+      border-radius: 20px;
+      border: none;
+      background: linear-gradient(to right, #e07604 0%, #f68b1e 100%);
+      color: #ffffff;
+      font-size: 16px;
+      font-weight: bold;
+      padding: 12px 45px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      transition: transform 80ms ease-in;
+      margin: 1rem 0;
+      cursor: pointer;
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+    button:focus {
+      outline: none;
+    }
+
+    button.ghost {
+      background-color: transparent;
+      border: 1px solid #ffffff;
+      width: 50%;
+    }
+
+    form {
+      background-color: #2f2f2f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 0 50px;
+      height: 100%;
+      text-align: center;
+      border-radius: 20px;
+    }
+
+    input {
+      background-color: #fff;
+      border: 1px solid #cecdcd;
+      padding: 12px 15px;
+      margin: 8px 0;
+      width: 90%;
+      border-radius: 8px;
+    }
+
+    .group-input {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+    }
+
+    .group-input i {
+      background: #cecdcd;
+      padding: 0.8rem;
+      color: #fff;
+      border-radius: 8px;
+      margin-right: 10px;
+    }
+
+    .container {
+      background: linear-gradient(to right, #059602, #13b101);
+      border-radius: 25px;
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25),
+      0 10px 10px rgba(0, 0, 0, 0.22);
+      position: relative;
+      overflow: hidden;
+      width: 768px;
+      max-width: 100%;
+      min-height: 480px;
+      transform: translateX(0);
+
+    }
+    form {
+      background-color: #2f2f2f;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      padding: 0 50px;
+      height: 100%;
+      text-align: center;
+  }
+
+    .form-container {
+      position: absolute;
+      border-radius: 20px;
+      top: 0;
+      height: 100%;
+    }
+   
+    .sign-in-container {
+      left: 0;
+      width: 50%;
+    }
+  </style>
+  <script src="https://kit.fontawesome.com/66c63b4ed2.js"></script>
+  <title>Admin Login</title>
+</head>
+<body>
+  <div class="container" id="container">
+    <div class="form-container sign-in-container">
+      <form action="{% url 'adminhome' %}">
+        <h1>Admin Login</h1>
+        <hr />
+        <div class="group-input">
+          <i class="fa fa-user"></i>
+          <input type="text" placeholder="Username" id="username" required/>
+        </div>
+        <div class="group-input">
+          <i class="fa fa-lock"></i>
+          <input type="password" placeholder="Password" id="password" required/>
+        </div>
+        <button type="submit">Login</button>
+        <a href="#">Forgot your password?</a>
+        <a href="{% url 'login' %}">Go Back</a>
+
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const loginForm = document.getElementById("loginForm");
+
+    loginForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+
+      const username = document.getElementById("username").value;
+      const password = document.getElementById("password").value;
+
+      // You can add login logic here and redirect the user if the login is successful.
+
+      if (username === "admin" && password === "password") {
+        window.location.href = "index.html"; // Replace with your admin dashboard URL.
+      } else {
+        alert("Invalid username or password. Please try again.");
+      }
+    });
+  </script>
+</body>
+</html>
+
+{% endblock %}
