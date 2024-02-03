@@ -1,0 +1,335 @@
+{% extends 'login.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare. com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+      integrity="sha512-1PK0gIY59xJ8C08+NE6FZ+LOAZKjY+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9 +fkDaog=="
+      crossorigin="anonymous"
+    />
+
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap");
+
+      * {
+        box-sizing: border-box;
+      }
+      h1 {
+        color: #fff;
+      }
+      body {
+        font-family: "Roboto", "sans-serif";
+        background-color: #333;
+        color: #222;
+        overflow-x: hidden;
+        margin: 0;
+      }
+      .container {
+        background-image: url(../static/img/lib.jpg);
+        background-color: #fafafa;
+        transform-origin: top left;
+        transition: transform 0.5s linear;
+        width: 100vw;
+        min-height: 100vh;
+        padding: 50px;
+      }
+      .container.show-nav {
+        transform: rotate(-15deg);
+      }
+      .circle-container {
+        position: fixed;
+        top: -100px;
+        left: -100px;
+      }
+      .circle {
+        background-color: #ff7979;
+        height: 200px;
+        width: 200px;
+        border-radius: 50%;
+        position: relative;
+        /*transition: transform 0.5s linear;*/
+      }
+      .container.show-nav .circle {
+        transform: rotate(-70deg);
+      }
+      .circle button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: 100px;
+        background: transparent;
+        border: 0;
+        font-size: 26px;
+        color: #fff;
+      }
+      .circle button:focus {
+        outline: none;
+      }
+      .circle button#open {
+        left: 60%;
+      }
+      .circle button#close {
+        top: 60%;
+        transform: rotate(90deg);
+        transform-origin: top left;
+      }
+      .container.show-nav + nav li {
+        transform: translateX(0);
+        transition-delay: 0.3s;
+      }
+      nav {
+        position: fixed;
+        bottom: 40px;
+        left: -45px;
+        z-index: 100;
+      }
+      nav ul {
+        list-style-type: none;
+        padding-left: 50px;
+      }
+      nav ul li {
+        text-transform: uppercase;
+        color: #fff;
+        margin: 30px 0;
+        transform: translateX(-100%);
+        transition: transform 0.4s ease-in;
+      }
+
+      nav ul li i {
+        font-size: 20px;
+        margin-right: 10px;
+      }
+      nav ul li + li {
+        margin-left: -5px;
+        transform: translateX(-100%);
+      }
+      nav ul li + li + li {
+        margin-left: -32px;
+        transform: translateX(-100%);
+        text-decoration: none;
+      }
+      nav ul li + li + li a {
+        margin-left: 30px;
+        transform: translateX(-50%);
+        text-decoration: none;
+        color: #fff;
+      }
+      .content img {
+        max-width: 100%;
+      }
+      .content {
+        max-width: 1000px;
+        margin: 50px auto;
+      }
+      .content h1 {
+        margin: 0;
+      }
+      .content small {
+        color: #555;
+        font-style: italic;
+      }
+      .content p {
+        color: #333;
+        line-height: 1.5;
+      }
+
+    /* Additional CSS for the form */
+      #resource-upload-form {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 5px;
+        margin-top: 20px;
+      }
+
+      #resource-upload-form label {
+        display: block;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+
+      #resource-upload-form input[type="text"],
+      #resource-upload-form textarea,
+      #resource-upload-form input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-top: 5px;
+      }
+
+      #resource-upload-form button {
+        background-color: #ff7979;
+        color: white;
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        margin-top: 10px;
+        cursor: pointer;
+      }
+
+      #resource-upload-form button:hover {
+        background-color: #b31500;
+      }
+
+      /* Additional CSS for the form */
+      #resource-upload-form {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 5px;
+        margin-top: 20px;
+        width: 50%;
+      }
+
+      #resource-upload-form label {
+        display: block;
+        font-weight: bold;
+        margin-top: 10px;
+      }
+
+      h2{
+        color: #ffffff;
+        font-style: italic;
+      }
+
+      #resource-upload-form input[type="text"],
+      #resource-upload-form textarea,
+      #resource-upload-form input[type="file"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin-top: 5px;
+      }
+
+      #resource-upload-form button {
+        background-color: #ae4e4e;
+        color: white;
+        width: 100%;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        margin-top: 10px;
+        cursor: pointer;
+      }
+
+      #resource-upload-form button:hover {
+        background-color: #b31500;
+      }
+
+      a {
+        color: rgb(255, 255, 255);
+        cursor: pointer;
+        text-decoration: none;
+    }
+    </style>
+  </head>
+  <body>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
+    <div class="container">
+      <div class="circle-container">
+        <div class="circle">
+          <button id="close">
+            <ion-icon name="close-outline"></ion-icon>
+          </button>
+          <button id="open">
+            <ion-icon name="reorder-three-outline"></ion-icon>
+          </button>
+        </div>
+      </div>
+      <div class="content">
+        <h1>Faculty Resource Page</h1>
+        <!-- Add this code within the <div class="content"> section of your HTML -->
+        <h2>Upload a Resource</h2>
+        <form id="resource-upload-form" method="#" enctype="multipart/form-data">
+          {% csrf_token %}
+          <!-- Add a hidden field to capture the faculty user ID or username -->
+          <input type="hidden" name="faculty" value="{{ user.id }}"> <!-- Replace 'user.id' with the actual way to get faculty user ID -->
+    
+          <label for="title">Title:</label>
+          <input type="text" id="title" name="title" required><br>
+          <label for="description">Description:</label>
+          <textarea id="description" name="description" rows="4" required></textarea><br>
+          <label for="resource_file">Resource File:</label>
+          <input type="file" id="resource_file" name="resource_file" accept=".jpg, .jpeg, .png, .pdf" required><br>
+          <button type="submit" id="button">Upload</button>
+        </form>
+      </div>    
+    </div>
+    <nav>
+      <ul>
+        <li>
+          <a href="{% url 'facultyhome' %}">
+              <ion-icon name="home-outline"></ion-icon> Home
+          </a>
+      </li>        <li>
+          <a href="{% url 'facultyresources' %}">
+            <ion-icon name="person-outline"></ion-icon> My Resources
+          </a>
+        </li>
+        <li>
+          <a href="{% url 'login' %}">
+            <ion-icon name="mail-outline"></ion-icon> Logout
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <script>
+      const open = document.getElementById("open");
+      const close = document.getElementById("close");
+      const container = document.querySelector(".container");
+
+      open.addEventListener("click", () => container.classList.add("show-nav"));
+      close.addEventListener("click", () =>
+        container.classList.remove("show-nav")
+      );
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      var resourceUploadURL = "{% url 'upload_resource' %}";
+    
+      $(document).ready(function() {
+        $('#resource-upload-form').submit(function(e) {
+          e.preventDefault();
+    
+          // Gather form data
+          var formData = new FormData(this);
+    
+          // Send a POST request to the server to handle resource upload
+          $.ajax({
+            url: resourceUploadURL, // Use the generated URL
+            type: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(response) {
+              // Handle success, e.g., show a success message
+              alert('Resource uploaded successfully!');
+              $('#resource-upload-form')[0].reset(); // Reset the form
+            },
+            error: function(error) {
+              // Handle errors, e.g., display an error message
+              alert('Error uploading resource. Please try again.');
+            }
+          });
+        });
+      });
+    </script>
+    
+  </body>
+</html>
+{% endblock %}
